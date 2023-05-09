@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StickMovement : MonoBehaviour
@@ -18,6 +19,8 @@ public class StickMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (trackObject.IsDestroyed())
+            return;
         transform.position = trackObject.transform.position + _delta;
     }
 }
