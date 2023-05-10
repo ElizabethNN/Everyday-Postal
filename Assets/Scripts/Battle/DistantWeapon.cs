@@ -7,24 +7,36 @@ namespace Battle
 
         [SerializeField]
         private float attackSpeed;
-        
-        void Start()
-        {
-        
-        }
+        [SerializeField]
+        private GameObject projectile;
+        private float _timer;
 
-        void Update()
+        void FixedUpdate()
         {
-        
+            if (_timer > 0)
+            {
+                _timer -= Time.fixedDeltaTime;
+            }
         }
 
         public void DoAttack(Vector3 targetPoint)
         {
-            
+            if (_timer > 0)
+            {
+                return;
+            }
+
+            _timer = 1 / attackSpeed;
+            var position = transform.position;
+            var dir = targetPoint - position.normalized;
+            var projectile = Instantiate(this.projectile,
+                new Vector3(position.x + dir.x * 0.1f, position.y + dir.y * 0.1f),
+                Quaternion.FromToRotation(position, targetPoint));
+            projectile.GetComponent<Projectile>().Init(targetPoint);
         }
 
         public float AttackSpeed => attackSpeed;
-        public int AttackDamage { get; }
-        public float AttackRange { get; }
+        public int AttackDamage => projectile.GetComponent<Projectile>().Damage;
+        public float AttackRange => projectile.GetComponent<Projectile>().Range;
     }
 }
