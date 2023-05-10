@@ -19,11 +19,11 @@ namespace Battle
             }
         }
 
-        public void DoAttack(Vector3 targetPoint)
+        public bool DoAttack(Vector3 targetPoint)
         {
             if (_timer > 0)
             {
-                return;
+                return false;
             }
 
             _timer = 1 / attackSpeed;
@@ -33,6 +33,7 @@ namespace Battle
                 new Vector3(position.x + dir.x * 0.1f, position.y + dir.y * 0.1f),
                 Quaternion.FromToRotation(position, targetPoint));
             projectile.GetComponent<Projectile>().Init(targetPoint);
+            return true;
         }
 
         public float AttackSpeed => attackSpeed;

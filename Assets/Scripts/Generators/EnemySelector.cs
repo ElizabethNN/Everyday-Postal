@@ -7,10 +7,10 @@ namespace Generators
 {
     public class EnemySelector
     {
-        private readonly List<IPlayable> _enemies;
-        private readonly IPlayable _hero;
+        private readonly List<Playable> _enemies;
+        private readonly Playable _hero;
 
-        public EnemySelector(List<IPlayable> enemies, IPlayable hero)
+        public EnemySelector(List<Playable> enemies, Playable hero)
         {
             _enemies = enemies;
             _enemies.Sort((enemy1, enemy2) => GetDifficulty(enemy1).CompareTo(GetDifficulty(enemy2)));
@@ -18,7 +18,7 @@ namespace Generators
         }
 
         [CanBeNull]
-        public IPlayable this[float difficulty]
+        public Playable this[float difficulty]
         {
             get
             {
@@ -29,7 +29,7 @@ namespace Generators
             }
         }
 
-        public float GetDifficulty(IPlayable puppet)
+        public float GetDifficulty(Playable puppet)
         {
             var puppetRelativeHp = puppet.HealthPoint / (_hero.AttackDamage * _hero.AttackSpeed);
             var heroRelativeHp = (puppet.AttackDamage * puppet.AttackSpeed) / _hero.HealthPoint;

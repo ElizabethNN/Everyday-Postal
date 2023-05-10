@@ -8,7 +8,7 @@ namespace Generators.Entities
     public class Room
     {
         private List<DirectionsEnum> _exits = new();
-        private List<IPlayable> _enemies = new();
+        private List<Playable> _enemies = new();
         public string Type { get; set; }
 
         public void AddExit(DirectionsEnum exit)
@@ -16,7 +16,7 @@ namespace Generators.Entities
             _exits.Add(exit);
         }
 
-        public void AddEnemy(IPlayable enemy)
+        public void AddEnemy(Playable enemy)
         {
             _enemies.Add(enemy);
         }
@@ -26,7 +26,7 @@ namespace Generators.Entities
             return _exits.AsReadOnly();
         }
 
-        public ReadOnlyCollection<IPlayable> GetEnemies()
+        public ReadOnlyCollection<Playable> GetEnemies()
         {
             return _enemies.AsReadOnly();
         }

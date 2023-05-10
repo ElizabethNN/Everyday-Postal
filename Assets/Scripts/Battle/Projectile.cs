@@ -33,9 +33,9 @@ namespace Battle
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.TryGetComponent(typeof(IPlayable), out var playable))
+            if (other.gameObject.TryGetComponent(typeof(Playable), out var playable))
             {
-                ((IPlayable)playable).ReceiveDamage(damage);
+                ((Playable)playable).ReceiveDamage(damage);
             }
             Destroy(gameObject);
         }

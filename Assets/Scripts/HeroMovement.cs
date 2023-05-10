@@ -2,7 +2,7 @@ using System;
 using Battle;
 using UnityEngine;
 
-public class HeroMovement : MonoBehaviour, IPlayable
+public class HeroMovement : Playable
 {
     [SerializeField]
     private float speed;
@@ -31,22 +31,22 @@ public class HeroMovement : MonoBehaviour, IPlayable
         if (Input.GetKey(KeyCode.Mouse0))
         {
             var worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            _weapon.DoAttack(new(worldPoint.x, worldPoint.y, 1));
+            if (_weapon.DoAttack(new(worldPoint.x, worldPoint.y, 1)))
+            {
+                OnAttackStart();
+            }
         }
     }
 
-    public int HealthPoint => health;
-    public float MoveSpeed => speed;
-    public int AttackDamage => _weapon?.AttackDamage ?? weapon.GetComponent<IWeapon>().AttackDamage;
-    public float AttackSpeed => _weapon?.AttackSpeed ?? weapon.GetComponent<IWeapon>().AttackSpeed;
-    public float AttackRange => _weapon?.AttackRange ?? weapon.GetComponent<IWeapon>().AttackRange;
-    public string Name => gameObject.name;
-    public void ReceiveDamage(int damage)
+    public override int HealthPoint => health;
+    public override float MoveSpeed => speed;
+    public override int AttackDamage => _weapon?.AttackDamage ?? weapon.GetComponent<IWeapon>().AttackDamage;
+    public override float AttackSpeed => _weapon?.AttackSpeed ?? weapon.GetComponent<IWeapon>().AttackSpeed;
+    public override float AttackRange => _weapon?.AttackRange ?? weapon.GetComponent<IWeapon>().AttackRange;
+    public override string Name => gameObject.name;
+    public override void ReceiveDamage(int damage)
     {
         health -= damage;
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
+        OnDamageReceived(health);
     }
 }

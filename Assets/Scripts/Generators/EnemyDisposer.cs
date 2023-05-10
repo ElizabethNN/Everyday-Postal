@@ -8,7 +8,7 @@ namespace Generators
     {
         private EnemySelector _selector;
         
-        public EnemyDisposer(List<IPlayable> enemies, IPlayable hero)
+        public EnemyDisposer(List<Playable> enemies, Playable hero)
         {
             _selector = new EnemySelector(enemies, hero);
         }

@@ -46,7 +46,7 @@ namespace Battle
                     if (Vector2.Angle(target, enemy) <= attackSector / 2)
                     {
                         GameObject o;
-                        (o = hit.collider.gameObject).GetComponent<IPlayable>().ReceiveDamage(AttackDamage);
+                        (o = hit.collider.gameObject).GetComponent<Playable>().ReceiveDamage(AttackDamage);
                         Debug.Log($"Dealt {attackDamage} damage to {o.name}");
                     }
                 }
@@ -57,17 +57,17 @@ namespace Battle
             }
         }
 
-        public void DoAttack(Vector3 targetPoint)
+        public bool DoAttack(Vector3 targetPoint)
         {
             _targetPoint = targetPoint;
             if (_timer > 0)
             {
-                return;
+                return false;
             }
 
             _shouldAttack = true;
             _timer = 1 / attackSpeed;
-            
+            return true;
         }
 
         public int AttackDamage => attackDamage;

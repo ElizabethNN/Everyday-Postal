@@ -33,7 +33,7 @@ public class LevelGenerator : MonoBehaviour
         {
             new MazeGenerator(),
             new RoomPlacement(rooms.Select(e => e.name).ToList()),
-            new EnemyDisposer(enemies.Select(e => e.GetComponent<IPlayable>()).ToList(), hero.GetComponent<IPlayable>())
+            new EnemyDisposer(enemies.Select(e => e.GetComponent<Playable>()).ToList(), hero.GetComponent<Playable>())
         });
         var result = _generator.Generate(5, 5, difficulty);
         for (int i = 0; i < result.GetLength(0); i++)

@@ -1,13 +1,11 @@
-using System;
 using Battle;
 using Pathfinding;
-using Unity.VisualScripting;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 
 namespace AI
 {
-    public class Puppet : MonoBehaviour, IPlayable
+    public class Puppet : Playable
     {
         private IWeapon _weapon;
 
@@ -18,6 +16,7 @@ namespace AI
 
         [SerializeField]
         private GameObject weapon;
+
         private void Awake()
         {
             _movement = GetComponent<AIPath>();
@@ -31,22 +30,22 @@ namespace AI
 
         public void Attack(Vector2 point)
         {
-            _weapon.DoAttack(point);
+            if (_weapon.DoAttack(point))
+            {
+                OnAttackStart();
+            }
         }
 
-        public int HealthPoint => healthPoint;
-        public float MoveSpeed => _movement == null ? GetComponent<AIPath>().maxSpeed : _movement.maxSpeed;
-        public int AttackDamage => _weapon?.AttackDamage ?? weapon.GetComponent<IWeapon>().AttackDamage;
-        public float AttackSpeed => _weapon?.AttackSpeed ?? weapon.GetComponent<IWeapon>().AttackSpeed;
-        public float AttackRange => _weapon?.AttackRange ?? weapon.GetComponent<IWeapon>().AttackRange;
-        public string Name => gameObject.name;
-        public void ReceiveDamage(int damage)
+        public override int HealthPoint => healthPoint;
+        public override float MoveSpeed => _movement == null ? GetComponent<AIPath>().maxSpeed : _movement.maxSpeed;
+        public override int AttackDamage => _weapon?.AttackDamage ?? weapon.GetComponent<IWeapon>().AttackDamage;
+        public override float AttackSpeed => _weapon?.AttackSpeed ?? weapon.GetComponent<IWeapon>().AttackSpeed;
+        public override float AttackRange => _weapon?.AttackRange ?? weapon.GetComponent<IWeapon>().AttackRange;
+        public override string Name => gameObject.name;
+        public override void ReceiveDamage(int damage)
         {
             healthPoint -= damage;
-            if (healthPoint <= 0)
-            {
-                Destroy(gameObject);
-            }
+            OnDamageReceived(healthPoint);
         }
     }
 }
