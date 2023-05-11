@@ -28,11 +28,11 @@ namespace Battle
 
             _timer = 1 / attackSpeed;
             var position = transform.position;
-            var dir = targetPoint - position.normalized;
+            var dir = (targetPoint - position).normalized;
             var projectile = Instantiate(this.projectile,
-                new Vector3(position.x + dir.x * 0.1f, position.y + dir.y * 0.1f),
+                new Vector3(position.x + dir.x * 1f, position.y + dir.y * 1f),
                 Quaternion.FromToRotation(position, targetPoint));
-            projectile.GetComponent<Projectile>().Init(targetPoint);
+            projectile.GetComponent<Projectile>().Init(dir, transform.parent.gameObject);
             return true;
         }
 

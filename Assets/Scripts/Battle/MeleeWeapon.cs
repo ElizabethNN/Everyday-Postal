@@ -21,10 +21,19 @@ namespace Battle
         private float _timer;
         private bool _shouldAttack;
         private Vector3 _targetPoint;
+        private string _layer;
 
         private void OnDrawGizmos()
         {
             Gizmos.DrawWireSphere(transform.position, AttackRange);
+        }
+
+        private void Start()
+        {
+            var ignored = transform.parent.gameObject.layer;
+            var layers = new List<string> { "Default", "Player" };
+            layers.Remove(LayerMask.LayerToName(ignored));
+            _layer = layers[0];
         }
 
         private void FixedUpdate()
@@ -34,14 +43,12 @@ namespace Battle
                 _shouldAttack = false;
                 var resultList = new List<RaycastHit2D>();
                 var filter = new ContactFilter2D();
-                filter.SetLayerMask(LayerMask.GetMask("Default", "Player"));
+                filter.SetLayerMask(LayerMask.GetMask(_layer));
                 var transformPosition = transform.position;
                 Physics2D.CircleCast(transformPosition, attackRange, Vector3.up, filter, resultList);
                 var target = _targetPoint - transformPosition;
                 foreach (var hit in resultList)
                 {
-                    if(hit.collider.gameObject == transform.parent.gameObject)
-                        continue;
                     var enemy = hit.transform.position - transformPosition;
                     if (Vector2.Angle(target, enemy) <= attackSector / 2)
                     {
@@ -60,7 +67,7 @@ namespace Battle
         public bool DoAttack(Vector3 targetPoint)
         {
             _targetPoint = targetPoint;
-            if (_timer > 0)
+            if (_timer > 0 || _shouldAttack)
             {
                 return false;
             }

@@ -11,6 +11,8 @@ namespace Battle
 
         private Rigidbody2D _rigidbody2D;
         private Vector3 _startPoint;
+        private Vector3 _velocity;
+        private GameObject _ignore;
 
         private void Start()
         {
@@ -20,24 +22,32 @@ namespace Battle
 
         private void FixedUpdate()
         {
+            var transform1 = transform;
+            var position = transform1.position;
+            position += _velocity * speed;
+            transform1.position = position;
             if (Vector2.Distance(_startPoint, transform.position) >= range)
             {
                 Destroy(gameObject);
             }
         }
 
-        public void Init(Vector3 point)
+        public void Init(Vector3 dir, GameObject parent)
         {
-            _rigidbody2D.velocity = (point - transform.position).normalized * speed;
+            _velocity = dir;
+            _ignore = parent;
         }
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.TryGetComponent(typeof(Playable), out var playable))
+            if (other.gameObject != _ignore)
             {
-                ((Playable)playable).ReceiveDamage(damage);
+                if (other.gameObject.TryGetComponent(typeof(Playable), out var playable))
+                {
+                    ((Playable)playable).ReceiveDamage(damage);
+                }
+                Destroy(gameObject);
             }
-            Destroy(gameObject);
         }
 
         public int Damage => damage;

@@ -1,4 +1,5 @@
 using Battle;
+using Pathfinding;
 using UnityEngine;
 
 public class AnimationController : MonoBehaviour
@@ -12,13 +13,17 @@ public class AnimationController : MonoBehaviour
 
     [SerializeField] 
     private new SpriteRenderer renderer;
+
+    [SerializeField] 
+    private AIPath aiPath;
     
     private Playable _playable;
-
-    private bool _attack = false;
+    
+    private bool _isaiPathNotNull;
 
     void Start()
     {
+        _isaiPathNotNull = aiPath != null;
         _playable = GetComponent<Playable>();
         _playable.OnDamage += OnDamageReceived;
         _playable.OnAttack += OnAttack;
@@ -32,11 +37,11 @@ public class AnimationController : MonoBehaviour
             return;
         }
 
-        if (rigidBody.velocity.y > 0)
+        if (rigidBody.velocity.y > 0 || (_isaiPathNotNull && aiPath.velocity.y > 0))
         {
             animator.Play("MoveBack");
         }
-        else if(rigidBody.velocity is { x: 0, y: 0 })
+        else if(rigidBody.velocity is { x: 0, y: 0 } || (_isaiPathNotNull && aiPath.velocity is { x: 0, y: 0 }))
         {
             animator.Play("Idle");
         }

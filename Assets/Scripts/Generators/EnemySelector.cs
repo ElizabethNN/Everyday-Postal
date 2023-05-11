@@ -12,9 +12,9 @@ namespace Generators
 
         public EnemySelector(List<Playable> enemies, Playable hero)
         {
+            _hero = hero;
             _enemies = enemies;
             _enemies.Sort((enemy1, enemy2) => GetDifficulty(enemy1).CompareTo(GetDifficulty(enemy2)));
-            _hero = hero;
         }
 
         [CanBeNull]

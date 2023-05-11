@@ -2,12 +2,14 @@ using System.Collections.Generic;
 using Generators.Entities;
 using Generators.Enums;
 using Generators.Utils;
+using UnityEngine;
 
 namespace Generators
 {
     public class MazeGenerator : AbstractLabyrinthGenerator
     {
         private long _filledCount;
+        private long _turns = 0;
         private readonly List<(int, int)> _notVisitedPoints = new();
         private DirectionsEnum[,] _directionsEnums;
 
@@ -15,6 +17,7 @@ namespace Generators
         {
             _notVisitedPoints.Clear();
             _filledCount = 0;
+            _turns = 0;
             _directionsEnums = new DirectionsEnum[rooms.GetLength(0), rooms.GetLength(1)];
             for (int i = 0; i < rooms.GetLength(0); i++)
             {
@@ -65,10 +68,16 @@ namespace Generators
                     previousState[previousPoint.Item1, previousPoint.Item2]!.AddExit(move);
                     previousState[startPoint.Item1, startPoint.Item2]!.AddExit(move.Opposite);
                     _filledCount++;
+                    _turns = 0;
                     _notVisitedPoints.Remove(startPoint);
                 }
 
                 previousPoint = startPoint;
+                _turns++;
+                if (_turns == 20)
+                {
+                    Debug.LogWarning("Possible cycle detected. Proceeding further generation");
+                }
             }
 
             return previousState;
@@ -112,12 +121,19 @@ namespace Generators
                 {
                     previousState[startPoint.Item1, startPoint.Item2] = new Room();
                     _filledCount++;
+                    _turns = 0;
                     _notVisitedPoints.Remove(startPoint);
                 }
 
                 previousState[startPoint.Item1, startPoint.Item2]
                     .AddExit(_directionsEnums[previousPoint.Item1, previousPoint.Item2].Opposite);
                 previousPoint = startPoint;
+
+                _turns++;
+                if (_turns == 20)
+                {
+                    Debug.LogWarning("Possible cycle detected. Proceeding further generation");
+                }
             }
 
             return previousState;

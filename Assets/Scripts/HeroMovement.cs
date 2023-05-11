@@ -30,8 +30,10 @@ public class HeroMovement : Playable
         _rigidbody2D.velocity = new Vector2(horizontal, vertical);
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            var worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (_weapon.DoAttack(new(worldPoint.x, worldPoint.y, 1)))
+            var mousePos = Input.mousePosition;
+            mousePos.z = 10;
+            var worldPoint = Camera.main.ScreenToWorldPoint(mousePos);
+            if (_weapon.DoAttack(new(worldPoint.x, worldPoint.y, 0)))
             {
                 OnAttackStart();
             }
