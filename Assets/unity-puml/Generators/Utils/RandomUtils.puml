@@ -1,0 +1,6 @@
+@startuml
+class RandomUtils {
+    + {static} GetRandomInt(min:int, max:int) : int
+    + {static} GetRandomInt(max:int) : int
+}
+@enduml

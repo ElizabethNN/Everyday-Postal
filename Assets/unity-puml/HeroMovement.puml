@@ -1,0 +1,12 @@
+@startuml
+class HeroMovement {
+    + <<override>> HealthPoint : int <<get>>
+    + <<override>> MoveSpeed : float <<get>>
+    + <<override>> AttackDamage : int <<get>>
+    + <<override>> AttackSpeed : float <<get>>
+    + <<override>> AttackRange : float <<get>>
+    + <<override>> Name : string <<get>>
+    + <<override>> ReceiveDamage(damage:int) : void
+}
+Playable <|-- HeroMovement
+@enduml

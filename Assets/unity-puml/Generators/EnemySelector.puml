@@ -1,0 +1,9 @@
+@startuml
+class EnemySelector {
+    + EnemySelector(enemies:List<Playable>, hero:Playable)
+    + GetDifficulty(puppet:Playable) : float
+}
+
+EnemySelector <.. EnemyDisposer
+Playable o-- EnemySelector
+@enduml

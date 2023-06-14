@@ -1,0 +1,11 @@
+@startuml
+class Room {
+    + Type : string <<get>> <<set>>
+    + AddExit(exit:DirectionsEnum) : void
+    + AddEnemy(enemy:Playable) : void
+    + GetExits() : ReadOnlyCollection<DirectionsEnum>
+    + GetEnemies() : ReadOnlyCollection<Playable>
+}
+
+Playable o-- Room
+@enduml

@@ -1,0 +1,8 @@
+@startuml
+class RoomPlacement {
+    + RoomPlacement(possibleRooms:List<string>)
+    + DoGeneration(rooms:Room[,], difficulty:float) : Room[,]
+}
+ILevelGenerationStep <|-- RoomPlacement
+Room o-- RoomPlacement
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+class MainMenu {
+    + ChangeScene(sceneIndex:int) : void
+    + Exit() : void
+}
+MonoBehaviour <|-- MainMenu
+@enduml

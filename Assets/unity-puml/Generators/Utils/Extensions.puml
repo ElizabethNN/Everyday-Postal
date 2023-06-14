@@ -1,0 +1,5 @@
+@startuml
+class Extensions <<static>> {
+    + {static} Shuffle(list:IList<T>) : void
+}
+@enduml

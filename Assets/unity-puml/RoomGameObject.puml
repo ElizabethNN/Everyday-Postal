@@ -1,0 +1,7 @@
+@startuml
+class RoomGameObject {
+    + CarveExit(direction:DirectionsEnum) : void
+    + AddEnemy(enemy:GameObject) : void
+}
+MonoBehaviour <|-- RoomGameObject
+@enduml

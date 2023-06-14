@@ -1,0 +1,7 @@
+@startuml
+class LevelGeneratorBehaviour {
+}
+MonoBehaviour <|-- LevelGeneratorBehaviour
+LevelGenerator <.. LevelGeneratorBehaviour
+RoomGameObject <.. LevelGeneratorBehaviour
+@enduml

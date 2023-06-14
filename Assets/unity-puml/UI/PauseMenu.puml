@@ -1,0 +1,8 @@
+@startuml
+class PauseMenu {
+    + Init() : void
+    + TogglePause() : void
+    + ExitToMenu() : void
+}
+MonoBehaviour <|-- PauseMenu
+@enduml

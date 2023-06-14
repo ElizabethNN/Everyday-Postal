@@ -1,0 +1,5 @@
+@startuml
+interface ILevelGenerationStep {
+    + DoGeneration(rooms:Room[,], difficulty:float) : Room[,]
+}
+@enduml

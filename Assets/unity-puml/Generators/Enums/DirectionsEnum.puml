@@ -1,0 +1,11 @@
+@startuml
+class DirectionsEnum {
+    + <<readonly>> Name : string
+    + MovePoint(point:(int, int)) : (int, int)
+}
+DirectionsEnum o-> "Top" DirectionsEnum
+DirectionsEnum o-> "Bottom" DirectionsEnum
+DirectionsEnum o-> "Left" DirectionsEnum
+DirectionsEnum o-> "Right" DirectionsEnum
+DirectionsEnum --> "Opposite" DirectionsEnum
+@enduml

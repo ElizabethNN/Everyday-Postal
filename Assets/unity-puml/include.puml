@@ -1,0 +1,12 @@
+@startuml
+rectangle Generic
+rectangle Battle
+rectangle Generators
+rectangle AI
+rectangle UI
+
+Generic ..> Generators
+Generic ..> AI
+AI ..> Battle
+UI ..> Battle
+@enduml

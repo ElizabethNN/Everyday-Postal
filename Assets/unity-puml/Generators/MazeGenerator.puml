@@ -1,0 +1,6 @@
+@startuml
+class MazeGenerator {
+    + <<override>> DoGeneration(rooms:Room[,], difficulty:float) : Room[,]
+}
+AbstractLabyrinthGenerator <|-- MazeGenerator
+@enduml

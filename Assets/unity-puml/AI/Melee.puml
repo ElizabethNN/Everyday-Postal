@@ -1,0 +1,5 @@
+@startuml
+class Melee {
+}
+MonoBehaviour <|-- Melee
+@enduml

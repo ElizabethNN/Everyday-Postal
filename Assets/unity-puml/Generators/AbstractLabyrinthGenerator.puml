@@ -1,0 +1,6 @@
+@startuml
+abstract class AbstractLabyrinthGenerator {
+    + {abstract} DoGeneration(labyrinth:Room[,], difficulty:float) : Room[,]
+}
+ILevelGenerationStep <|-- AbstractLabyrinthGenerator
+@enduml

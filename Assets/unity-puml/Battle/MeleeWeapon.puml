@@ -1,0 +1,10 @@
+@startuml
+class MeleeWeapon {
+    + DoAttack(targetPoint:Vector3) : bool
+    + AttackDamage : int <<get>>
+    + AttackSpeed : float <<get>>
+    + AttackRange : float <<get>>
+}
+MonoBehaviour <|-- MeleeWeapon
+IWeapon <|-- MeleeWeapon
+@enduml

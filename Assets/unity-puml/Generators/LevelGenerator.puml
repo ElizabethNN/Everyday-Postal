@@ -1,0 +1,8 @@
+@startuml
+class LevelGenerator {
+    + LevelGenerator(steps:List<ILevelGenerationStep>)
+    + Generate(x:int, y:int, difficulty:float) : Room[,]
+}
+
+ILevelGenerationStep <.. LevelGenerator
+@enduml

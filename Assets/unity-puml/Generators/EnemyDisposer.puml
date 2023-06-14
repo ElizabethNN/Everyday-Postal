@@ -1,0 +1,7 @@
+@startuml
+class EnemyDisposer {
+    + EnemyDisposer(enemies:List<Playable>, hero:Playable)
+    + DoGeneration(rooms:Room[,], difficulty:float) : Room[,]
+}
+ILevelGenerationStep <|-- EnemyDisposer
+@enduml

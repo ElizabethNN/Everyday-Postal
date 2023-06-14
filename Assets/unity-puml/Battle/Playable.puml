@@ -1,0 +1,14 @@
+@startuml
+abstract class Playable {
+    + {abstract} HealthPoint : int <<get>>
+    + {abstract} MoveSpeed : float <<get>>
+    + {abstract} AttackDamage : int <<get>>
+    + {abstract} AttackSpeed : float <<get>>
+    + {abstract} AttackRange : float <<get>>
+    + {abstract} Name : string <<get>>
+    + {abstract} ReceiveDamage(damage:int) : void
+    +  <<event>> OnDamage : OnDamageCallback 
+    +  <<event>> OnAttack : OnAttackCallback 
+}
+MonoBehaviour <|-- Playable
+@enduml

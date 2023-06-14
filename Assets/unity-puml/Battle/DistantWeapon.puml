@@ -1,0 +1,10 @@
+@startuml
+class DistantWeapon {
+    + DoAttack(targetPoint:Vector3) : bool
+    + AttackSpeed : float <<get>>
+    + AttackDamage : int <<get>>
+    + AttackRange : float <<get>>
+}
+MonoBehaviour <|-- DistantWeapon
+IWeapon <|-- DistantWeapon
+@enduml

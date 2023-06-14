@@ -1,0 +1,8 @@
+@startuml
+class Projectile {
+    + Init(dir:Vector3, parent:GameObject) : void
+    + Damage : int <<get>>
+    + Range : float <<get>>
+}
+MonoBehaviour <|-- Projectile
+@enduml
